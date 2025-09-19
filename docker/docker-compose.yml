@@ -108,14 +108,14 @@ services:
       # Point to backend API; override in .env
       #DSPACE_API_ROOT: "${DSPACE_API_ROOT:-http://backend:8080}" 
 
+      DSPACE_UI_HOST: 'angular'
+      DSPACE_UI_PORT: 4000
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_NAMESPACE: /
       # NOTE: When running the UI in production mode (which the -dist image does),
       # these DSPACE_REST_* variables MUST point at a public, HTTPS URL.
       # This is because Server Side Rendering (SSR) currently requires a public URL,
-      # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
-      DSPACE_REST_SSL: 'false'
-      DSPACE_REST_PORT: 8080
+      # see this bug: htts://github.com/DSpace/dspace-angular/issues/1485
       DSPACE_REST_NAMESPACE: /server
     ports:
       - "${ANGULAR_HOST_PORT}:4000"

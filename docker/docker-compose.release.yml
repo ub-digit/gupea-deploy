@@ -2,5 +2,10 @@ services:
   angular:
     image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}-dist
     environment:
-      DSPACE_UI_HOST: '${ANGULAR_PUBLIC_HOST}'
       DSPACE_REST_HOST: '${DSPACE_PUBLIC_HOST}'
+      DSPACE_REST_PORT: 443
+      DSPACE_REST_SSL: 'true'
+  dspace:
+    environment:
+      dspace__P__server__P__url: https://${DSPACE_PUBLIC_URL}/server
+      dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_URL}

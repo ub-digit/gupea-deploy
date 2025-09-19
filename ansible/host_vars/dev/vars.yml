@@ -1,0 +1,11 @@
+---
+docker_git_revision: master
+dspace_version: '8_x'
+dspace_solr_version: '8_x'
+dspace_postgres_version: '8_x'
+dspace_angular_version: '8_x'
+docker_command: ./docker-compose-release.sh
+dspace_host_port: 40031
+angular_host_port: 40030
+dspace_hostname: "{{ app_name }}-dev.ub.gu.se"
+angular_hostname: "{{ app_name }}-dev.ub.gu.se"

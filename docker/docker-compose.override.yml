@@ -1,0 +1,8 @@
+services:
+  angular:
+    image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}
+    environment:
+      DSPACE_UI_HOST: localhost
+      DSPACE_UI_PORT: ${ANGULAR_HOST_PORT}
+      DSPACE_REST_HOST: localhost
+      DSPACE_REST_PORT: ${DSPACE_HOST_PORT}

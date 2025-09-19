@@ -1,0 +1,6 @@
+services:
+  angular:
+    image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}-dist
+    environment:
+      DSPACE_UI_HOST: '${ANGULAR_PUBLIC_HOST}'
+      DSPACE_REST_HOST: '${DSPACE_PUBLIC_HOST}'

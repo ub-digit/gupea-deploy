@@ -1,0 +1,139 @@
+name: "dspace"
+
+x-restart: &default-restart
+  restart: unless-stopped
+
+services:
+  postgres:
+    image: dspace/dspace-postgres-pgcrypto:dspace-${DSPACE_POSTGRES_VERSION}
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-change_me}"
+    volumes:
+      - ${POSTGRES_DATA_HOST_DIR}:/var/lib/postgresql/data:rw
+      - ./postgres-initdb.d:/docker-entrypoint-initdb.d:ro
+    networks:
+      - dspace-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    <<: *default-restart
+  solr:
+    image: dspace/dspace-solr:dspace-${DSPACE_SOLR_VERSION}
+    environment:
+      - SOLR_HEAP=2g
+    volumes:
+      - ${SOLR_DATA_HOST_DIR}:/opt/solr/server/solr/data
+    networks:
+      - dspace-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8983/solr/" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    entrypoint:
+    - /bin/bash
+    - '-c'
+    - |
+      init-var-solr
+      precreate-core authority /opt/solr/server/solr/configsets/authority
+      cp -r /opt/solr/server/solr/configsets/authority/* authority
+      precreate-core oai /opt/solr/server/solr/configsets/oai
+      cp -r /opt/solr/server/solr/configsets/oai/* oai
+      precreate-core search /opt/solr/server/solr/configsets/search
+      cp -r /opt/solr/server/solr/configsets/search/* search
+      precreate-core statistics /opt/solr/server/solr/configsets/statistics
+      cp -r /opt/solr/server/solr/configsets/statistics/* statistics
+      precreate-core qaevent /opt/solr/server/solr/configsets/qaevent
+      cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
+      precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
+      cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
+      exec solr -f
+    <<: *default-restart
+  dspace:
+    image: dspace/dspace:dspace-${DSPACE_VERSION}
+    env_file:
+      - secrets.env
+    environment:
+      # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.
+      # See https://github.com/DSpace/DSpace/blob/main/dspace/config/config-definition.xml
+      # __P__ => "." (e.g. dspace__P__dir => dspace.dir)
+      # __D__ => "-" (e.g. google__D__metadata => google-metadata)
+      # dspace.dir: Must match with Dockerfile's DSPACE_INSTALL directory.
+      dspace__P__dir: /dspace
+      # Uncomment to set a non-default value for dspace.server.url or dspace.ui.url
+      # dspace__P__server__P__url: http://localhost:8080/server
+      # dspace__P__ui__P__url: http://localhost:4000
+      dspace__P__name: 'DSpace Started with Docker Compose'
+      # db.url: Ensure we are using the 'dspacedb' image for our database
+      db__P__url: 'jdbc:postgresql://postgres:5432/${POSTGRES_DB}'
+      db__P__user: '${POSTGRES_USER}'
+      db__P__password: '${POSTGRES_PASSWORD}'
+      # solr.server: Ensure we are using the 'dspacesolr' image for Solr
+      solr__P__server: http://solr:8983/solr
+      # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests
+      # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
+      proxies__P__trusted__P__ipranges: '172.30.0'
+
+      LOGGING_CONFIG: /dspace/config/log4j2-container.xml # Can't find in dspace repo, probably remnant from dspace 7
+    volumes:
+      - ${DSPACE_CONFIG_HOST_DIR}:/dspace/config:rw
+      - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
+      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
+    depends_on:
+      - postgres
+      - solr
+    networks:
+      - dspace-net
+    entrypoint:
+    - /bin/bash
+    - '-c'
+    - |
+      /dspace/bin/dspace database migrate
+      java -jar /dspace/webapps/server-boot.jar --dspace.dir=/dspace
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/server/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+    ports:
+      - "$DSPACE_HOST_PORT:8080" # backend internal port; we'll proxy through nginx
+    <<: *default-restart
+  angular:
+    image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}
+    environment:
+      # Point to backend API; override in .env
+      #DSPACE_API_ROOT: "${DSPACE_API_ROOT:-http://backend:8080}" 
+
+      DSPACE_UI_SSL: 'false'
+      DSPACE_UI_NAMESPACE: /
+      # NOTE: When running the UI in production mode (which the -dist image does),
+      # these DSPACE_REST_* variables MUST point at a public, HTTPS URL.
+      # This is because Server Side Rendering (SSR) currently requires a public URL,
+      # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
+      DSPACE_REST_SSL: 'false'
+      DSPACE_REST_PORT: 8080
+      DSPACE_REST_NAMESPACE: /server
+    ports:
+      - "${ANGULAR_HOST_PORT}:4000"
+    networks:
+      - dspace-net
+    depends_on:
+      - dspace
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    <<: *default-restart
+
+networks:
+  dspace-net:
+     ipam:
+      config:
+        # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
+        # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
+        - subnet: 172.30.0.0/16

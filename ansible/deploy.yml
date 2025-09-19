@@ -1,0 +1,62 @@
+---
+- name: Deploy
+  hosts: all
+  tasks:
+
+  - name: Include default environment variables
+    ansible.builtin.include_vars:
+      file: default_env.yml
+      name: env_variables
+
+  - name: Include environment variables
+    ansible.builtin.include_vars:
+      file: '{{ inventory_hostname }}/env.yml'
+      name: env_variables
+      hash_behaviour: merge
+
+  - name: Include default secret environment variables
+    ansible.builtin.include_vars:
+      file: default_secret_env.yml
+      name: secret_env_variables
+
+  - name: Include secret environment variables
+    ansible.builtin.include_vars:
+      file: '{{ inventory_hostname }}/secret_env.yml'
+      name: secret_env_variables
+      hash_behaviour: merge
+
+  - name: Ensure data directory
+    become: yes
+    ansible.builtin.file:
+      path: '{{ data_dir }}'
+      state: directory
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+      mode: '755'
+
+  - name: Ensure data sub-directies
+    become: yes
+    ansible.builtin.file:
+      path: '{{ item }}'
+      state: directory
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+      mode: '755'
+    loop:
+      - '{{ postgres_data_dir }}'
+      - '{{ dspace_config_dir }}'
+      - '{{ dspace_asset_store_dir }}'
+      - '{{ dspace_logs_dir }}'
+
+  - name: Ensure solr data directory
+    become: yes
+    ansible.builtin.file:
+      path: '{{ solr_data_dir }}'
+      state: directory
+      owner: '8983'
+      group: '8983'
+      mode: '755'
+
+  - name: Deploy app
+    include_role:
+      name: ub-ansible-deploy

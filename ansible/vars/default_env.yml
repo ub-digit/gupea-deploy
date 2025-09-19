@@ -1,0 +1,16 @@
+---
+DSPACE_POSTGRES_VERSOIN: '{{ dspace_postgres_version }}'
+DSPACE_SOLR_VERSION: '{{ dspace_solr_version }}'
+DSPACE_VERSION: '{{ dspace_version }}'
+DSPACE_ANGULAR_VERSION: '{{ dspace_angular_version }}'
+DSPACE_HOST_PORT: '127.0.0.1:{{ dspace_host_port }}'
+ANGULAR_HOST_PORT: '127.0.0.1:{{ angular_host_port}}'
+DSPACE_PUBLIC_HOST: '{{ dspace_hostname }}'
+ANGULAR_PUBLIC_HOST: '{{ angular_hostname }}'
+
+DSPACE_DATA_DIR: '{{ data_dir }}'
+POSTGRES_DATA_HOST_DIR: '{{ postgres_data_dir }}'
+SOLR_DATA_HOST_DIR: '{{ solr_data_dir }}'
+DSPACE_CONFIG_HOST_DIR: '{{ dspace_config_dir }}'
+DSPACE_ASSET_STORE_HOST_DIR: '{{ dspace_asset_store_dir }}'
+DSPACE_LOGS_HOST_DIR: '{{ dspace_logs_dir }}'

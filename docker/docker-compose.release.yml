@@ -7,5 +7,5 @@ services:
       DSPACE_REST_SSL: 'true'
   dspace:
     environment:
-      dspace__P__server__P__url: https://${DSPACE_PUBLIC_URL}/server
-      dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_URL}
+      dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server
+      dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_HOST}

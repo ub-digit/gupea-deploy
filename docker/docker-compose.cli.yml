@@ -1,0 +1,24 @@
+networks:
+  default:
+    name: dspace_dspace-net
+    external: true
+services:
+  dspace-cli:
+    image: dspace/dspace-cli:dspace-${DSPACE_VERSION}
+    env_file:
+      - secrets.env
+    environment:
+      dspace__P__dir: /dspace
+      dspace__P__name: 'DSpace CLI Started with Docker Compose'
+      db__P__url: 'jdbc:postgresql://postgres:5432/${POSTGRES_DB}'
+      db__P__user: '${POSTGRES_USER}'
+      db__P__password: '${POSTGRES_PASSWORD}'
+      solr__P__server: http://solr:8983/solr
+    entrypoint: /dspace/bin/dspace
+    command: help
+    tty: true
+    stdin_open: true
+    volumes:
+      - ${DSPACE_CONFIG_HOST_DIR}:/dspace/config:rw
+      - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
+      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw

@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  mailpit:
+    env_file:
+      - secrets.env
+    image: axllent/mailpit
+    environment:
+      - MP_WEBROOT=/mail/
+    ports:
+      - ${MAILPIT_HOST_PORT}:8025
+    networks:
+      - dspace-net

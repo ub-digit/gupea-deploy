@@ -1,7 +1,3 @@
-networks:
-  default:
-    name: dspace_dspace-net
-    external: true
 services:
   dspace-cli:
     image: dspace/dspace-cli:dspace-${DSPACE_VERSION}
@@ -22,3 +18,7 @@ services:
       - ${DSPACE_CONFIG_HOST_DIR}:/dspace/config:rw
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
       - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
+networks:
+  default:
+    name: dspace_dspace-net
+    external: true

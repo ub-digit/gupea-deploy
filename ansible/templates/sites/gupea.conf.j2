@@ -22,6 +22,18 @@
   ProxyPass        /server http://127.0.0.1:{{ dspace_host_port }}/server
   ProxyPassReverse /server http://127.0.0.1:{{ dspace_host_port }}/server
 
+{% if inventory_hostname != 'production' %}
+  # Mailpit for non production environments
+  ProxyPass        /mail http://127.0.0.1:{{ mailpit_host_port }}/mail
+  ProxyPassReverse /mail http://127.0.0.1:{{ mailpit_host_port }}/mail
+
+  SSLProxyEngine on
+  RewriteEngine on
+  RewriteCond %{HTTP:Upgrade} websocket [NC]
+  RewriteCond %{HTTP:Connection} upgrade [NC]
+  RewriteRule ^/?(.*) "ws://127.0.0.1:{{ mailpit_host_port }}/$1" [P,L]
+{% endif %}
+
   ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
   ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
 

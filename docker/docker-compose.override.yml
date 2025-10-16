@@ -1,7 +1,32 @@
 services:
+  dspace:
+    environment:
+      dspace__P__server__P__url: 'http://localhost:${DSPACE_HOST_PORT}/server'
+      dspace__P__ui__P__url: 'http://localhost:${ANGULAR_HOST_PORT}'
   angular:
-    image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}
     environment:
       DSPACE_REST_HOST: localhost
       DSPACE_REST_PORT: 8080
       DSPACE_REST_SSL: 'false'
+  mailpit:
+    env_file:
+      - secrets.env
+    image: axllent/mailpit
+    ports:
+      - ${MAILPIT_HOST_PORT}:8025
+    networks:
+      - dspace-net
+  gupea-espikning:
+    image: docker.ub.gu.se/elixir-dev:1.18.4-otp-27
+    environment:
+      - MIX_ENV=dev
+      - DB_HOST=postgres
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DSPACE_API_BASE_URL=http://dspace:8080/server/api
+    volumes:
+      - "../../gupea-espikning:/app"
+      - "../../gupea-espikning/_build:/app/_build"
+    networks:
+      - dspace-net

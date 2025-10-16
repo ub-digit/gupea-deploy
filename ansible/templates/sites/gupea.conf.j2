@@ -13,12 +13,6 @@
 #  ProxyPass        /oai-uppsok http://127.0.0.1:30038/oai
 #  ProxyPass        /oai-uppsok http://127.0.0.1:30038/oai
 
-  ProxyPass        /espikning/assets http://127.0.0.1:30039/espikning/assets
-  ProxyPassReverse /espikning/assets http://127.0.0.1:30039/espikning/assets
-  ProxyPass        /espikning http://127.0.0.1:30039/
-  ProxyPassReverse /espikning http://127.0.0.1:30039/
-  # Bör lösas i applikationen
-
   ProxyPass        /server http://127.0.0.1:{{ dspace_host_port }}/server
   ProxyPassReverse /server http://127.0.0.1:{{ dspace_host_port }}/server
 
@@ -37,18 +31,32 @@
   ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
   ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
 
+  ProxyPreserveHost On
+  ProxyRequests Off
+
+  RewriteEngine On
+
+  # WebSocket proxy for LiveReload
+  RewriteCond %{HTTP:Upgrade} =websocket [NC]
+  RewriteRule ^/espikning/(.*) ws://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
+
+  # HTTP proxy for everything else
+  RewriteCond %{HTTP:Upgrade} !=websocket [NC]
+  RewriteRule ^/espikning/(.*) http://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
+
+  # Optional: redirect /espikning/favicon.ico
+  # Redirect /espikning/favicon.ico /favicon.ico
+
+  <Location "/espikning">
+    AuthType Basic
+    AuthName "Restricted Content"
+    AuthUserFile /etc/apache2/conf-enabled/.htpasswd
+    Require valid-user
+  </Location>
+
   SSLEngine on
   SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem
   SSLCertificateKeyFile /etc/ssl/apache2/private/ub-gu-se.key
   SSLCertificateChainFile /etc/ssl/apache2/certs/interm_geant.pem
-
-# TODO:
-#  <Location "/espikning">
-#    AuthType Basic
-#    AuthName "Restricted Content"
-#    AuthUserFile /etc/apache2/conf-enabled/.htpasswd
-#    Require valid-user
-#  </Location>
-
 </VirtualHost>
 

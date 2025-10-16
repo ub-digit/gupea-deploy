@@ -4,10 +4,12 @@ dspace_version: '8_x'
 dspace_solr_version: '8_x'
 dspace_postgres_version: '8_x'
 dspace_angular_version: '8_x'
+gupea_espikning_git_revision: release-2025.10.001
 docker_command: ./docker-compose-release-mailpit.sh
 angular_host_port: 40030
 dspace_host_port: 40031
 mailpit_host_port: 40032
+gupea_espikning_host_port: 40039
 
 dspace_hostname: "{{ app_name }}-dev.ub.gu.se"
 angular_hostname: "{{ app_name }}-dev.ub.gu.se"

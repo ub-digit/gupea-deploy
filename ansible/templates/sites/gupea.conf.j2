@@ -13,6 +13,7 @@
 #  ProxyPass        /oai-uppsok http://127.0.0.1:30038/oai
 #  ProxyPass        /oai-uppsok http://127.0.0.1:30038/oai
 
+  # DSpace server
   ProxyPass        /server http://127.0.0.1:{{ dspace_host_port }}/server
   ProxyPassReverse /server http://127.0.0.1:{{ dspace_host_port }}/server
 
@@ -25,11 +26,8 @@
   RewriteEngine on
   RewriteCond %{HTTP:Upgrade} websocket [NC]
   RewriteCond %{HTTP:Connection} upgrade [NC]
-  RewriteRule ^/?(.*) "ws://127.0.0.1:{{ mailpit_host_port }}/$1" [P,L]
+  RewriteRule ^/mail/?(.*) "ws://127.0.0.1:{{ mailpit_host_port }}/mail/$1" [P,L]
 {% endif %}
-
-  ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
-  ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
 
   ProxyPreserveHost On
   ProxyRequests Off
@@ -53,6 +51,12 @@
     AuthUserFile /etc/apache2/conf-enabled/.htpasswd
     Require valid-user
   </Location>
+
+  ProxyPreserveHost Off
+
+  # DSpace frontend
+  ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
+  ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
 
   SSLEngine on
   SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem

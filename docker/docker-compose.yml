@@ -110,7 +110,7 @@ services:
       # Point to backend API; override in .env
       #DSPACE_API_ROOT: "${DSPACE_API_ROOT:-http://backend:8080}" 
 
-      DSPACE_UI_HOST: 'localhost'
+      DSPACE_UI_HOST: 'angular'
       DSPACE_UI_PORT: 4000
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_NAMESPACE: /

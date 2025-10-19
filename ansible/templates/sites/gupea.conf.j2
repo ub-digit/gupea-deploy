@@ -36,11 +36,11 @@
 
   # WebSocket proxy for LiveReload
   RewriteCond %{HTTP:Upgrade} =websocket [NC]
-  RewriteRule ^/espikning/(.*) ws://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
+  RewriteRule ^/espikning/?(.*) ws://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
 
   # HTTP proxy for everything else
   RewriteCond %{HTTP:Upgrade} !=websocket [NC]
-  RewriteRule ^/espikning/(.*) http://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
+  RewriteRule ^/espikning/?(.*) http://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
 
   # Optional: redirect /espikning/favicon.ico
   # Redirect /espikning/favicon.ico /favicon.ico

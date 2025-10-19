@@ -2,9 +2,13 @@ services:
   angular:
     image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}-dist
     environment:
-      DSPACE_REST_HOST: '${DSPACE_PUBLIC_HOST}'
+      DSPACE_REST_HOST: '${ANGULAR_PUBLIC_HOST}'
       DSPACE_REST_PORT: 443
       DSPACE_REST_SSL: 'true'
+  gupea-espikning:
+    environment:
+      PHX_HOST: '${ANGULAR_PUBLIC_HOST}'
+      PHX_PATH: '/espikning'
   dspace:
     environment:
       dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server

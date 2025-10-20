@@ -1,6 +1,6 @@
 services:
   angular:
-    image: dspace/dspace-angular:dspace-${DSPACE_ANGULAR_VERSION}-dist
+    image: docker.ub.gu.se/dspace-angular:dspace-8_x-${DSPACE_ANGULAR_VERSION}-dist
     environment:
       DSPACE_REST_HOST: '${ANGULAR_PUBLIC_HOST}'
       DSPACE_REST_PORT: 443

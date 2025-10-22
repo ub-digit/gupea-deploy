@@ -8,6 +8,9 @@ services:
       DSPACE_REST_HOST: localhost
       DSPACE_REST_PORT: 8080
       DSPACE_REST_SSL: 'false'
+    volumes:
+      - "../../dspace-angular:/app"
+      - "node-cache:/cache"
   mailpit:
     env_file:
       - secrets.env
@@ -30,3 +33,5 @@ services:
       - "../../gupea-espikning/_build:/app/_build"
     networks:
       - dspace-net
+volumes:
+  node-cache:

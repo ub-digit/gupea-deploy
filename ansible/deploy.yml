@@ -59,3 +59,6 @@
   - name: Deploy app
     include_role:
       name: ub-ansible-deploy
+    vars:
+      docker_scripts:
+        - generate_all_envs.sh

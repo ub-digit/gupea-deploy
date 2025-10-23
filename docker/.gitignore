@@ -1,3 +1,4 @@
 dspace-*
 postgres-*
 secrets.env
+*.service.env

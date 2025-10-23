@@ -6,6 +6,5 @@ app_name: gupea
 data_dir: /data/gupea
 postgres_data_dir: /data/gupea/postgres-data
 solr_data_dir: /data/gupea/solr-data
-dspace_config_dir: /data/gupea/dspace-config
 dspace_asset_store_dir:  /data/gupea/dspace-asset-store
 dspace_logs_dir: /data/gupea/dspace-logs

@@ -82,7 +82,6 @@ services:
 
       LOGGING_CONFIG: /dspace/config/log4j2-container.xml # Can't find in dspace repo, probably remnant from dspace 7
     volumes:
-      - ${DSPACE_CONFIG_HOST_DIR}:/dspace/config:rw
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
       - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
     depends_on:
@@ -142,6 +141,7 @@ services:
       - PHX_IP=0.0.0.0
     depends_on:
       - dspace
+      - postgres
     ports:
       - ${GUPEA_ESPIKNING_HOST_PORT}:4000
     networks:

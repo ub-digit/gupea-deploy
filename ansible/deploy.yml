@@ -44,7 +44,6 @@
       mode: '755'
     loop:
       - '{{ postgres_data_dir }}'
-      - '{{ dspace_config_dir }}'
       - '{{ dspace_asset_store_dir }}'
       - '{{ dspace_logs_dir }}'
 

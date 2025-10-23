@@ -54,7 +54,7 @@ services:
       exec solr -f
     <<: *default-restart
   dspace:
-    image: dspace/dspace:dspace-${DSPACE_VERSION}
+    image: docker.ub.gu.se/dspace:dspace-8_x-${DSPACE_VERSION}
     env_file:
       - secrets.env
     environment:

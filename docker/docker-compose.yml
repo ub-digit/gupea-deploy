@@ -78,14 +78,11 @@ services:
       timeout: 5s
       retries: 6
     ports:
-      - "$DSPACE_HOST_PORT:8080" # backend internal port; we'll proxy through nginx
+      - '${DSPACE_HOST_PORT}:${DSPACE_PORT}'
     <<: *default-restart
   angular:
     image: docker.ub.gu.se/dspace-angular:dspace-8_x-dev
     environment:
-      # Point to backend API; override in .env
-      #DSPACE_API_ROOT: "${DSPACE_API_ROOT:-http://backend:8080}" 
-
       DSPACE_UI_HOST: 'angular'
       DSPACE_UI_PORT: 4000
       DSPACE_UI_SSL: 'false'

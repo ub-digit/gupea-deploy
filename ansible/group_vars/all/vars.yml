@@ -8,3 +8,4 @@ postgres_data_dir: /data/gupea/postgres-data
 solr_data_dir: /data/gupea/solr-data
 dspace_asset_store_dir:  /data/gupea/dspace-asset-store
 dspace_logs_dir: /data/gupea/dspace-logs
+gupea_dflow_import_data_dir: /data/gupea/dflow-import-data

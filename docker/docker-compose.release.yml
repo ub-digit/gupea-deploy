@@ -1,3 +1,6 @@
+x-restart: &default-restart
+  restart: unless-stopped
+
 services:
   angular:
     image: docker.ub.gu.se/dspace-angular:dspace-8_x-${DSPACE_ANGULAR_VERSION}-dist
@@ -13,3 +16,33 @@ services:
     environment:
       dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server
       dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_HOST}
+  gupea-dflow-import:
+    image: docker.ub.gu.se/gupea-dflow-import:${GUPEA_DFLOW_IMPORT_GIT_REVISION}
+    env_file:
+      - secrets.env
+      - dspace.service.env
+    environment:
+      DSPACE_BINARY: '${DSPACE_BINARY}'
+      DFLOW_IMPORT_BASE_PATH: '${GUPEA_DFLOW_IMPORT_BASE_PATH_INTERNAL}'
+      DFLOW_IMPORT_MAPFILE_REGEXP: '${GUPEA_DFLOW_IMPORT_MAPFILE_REGEXP}'
+      DFLOW_IMPORT_USER: '${GUPEA_DFLOW_IMPORT_USER}'
+      DFLOW_IMPORT_GUPEA_URLBASE: 'https://${DSPACE_PUBLIC_HOST}/'
+      RACK_ENV: "production"
+    ports:
+      - '${GUPEA_DFLOW_IMPORT_HOST_PORT}:3000'
+    volumes:
+      - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
+      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
+      - ${GUPEA_DFLOW_IMPORT_DATA_HOST_DIR}:${GUPEA_DFLOW_IMPORT_BASE_PATH_INTERNAL}
+    <<: *default-restart
+  gupea-xslt-uppsok:
+    image: docker.ub.gu.se/gupea-xslt-uppsok:${GUPEA_XSLT_UPPSOK_GIT_REVISION}
+    environment:
+      DSPACE_HOST: dspace
+      DSPACE_PORT: '${DSPACE_PORT}'
+      RACK_ENV: "production"
+    networks:
+      - dspace-net
+    ports:
+      - '${GUPEA_XSLT_UPPSOK_HOST_PORT}:3000'
+    <<: *default-restart

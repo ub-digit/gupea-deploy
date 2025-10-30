@@ -1,0 +1,19 @@
+---
+docker_git_revision: master
+dspace_version: release-2025.10.002
+dspace_solr_version: '8_x'
+dspace_postgres_version: '8_x'
+dspace_angular_version: release-2025.10.007
+gupea_espikning_git_revision: release-2025.10.005
+gupea_dflow_import_git_revision: release-2025.10.004
+gupea_xslt_uppsok_git_revision: release-2025.10.003
+docker_command: ./docker-compose-release-mailpit.sh
+angular_host_port: 30030
+dspace_host_port: 30031
+mailpit_host_port: 30032
+gupea_espikning_host_port: 30033
+gupea_dflow_import_host_port: 30034
+gupea_xslt_uppsok_host_port: 30035
+
+dspace_hostname: "{{ app_name }}-lab.ub.gu.se"
+angular_hostname: "{{ app_name }}-lab.ub.gu.se"

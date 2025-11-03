@@ -16,6 +16,28 @@ services:
     environment:
       dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server
       dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_HOST}
+  gupea-espikning:
+    env_file:
+      - secrets.env
+    image: docker.ub.gu.se/gupea-espikning:${GUPEA_ESPIKNING_GIT_REVISION}
+    environment:
+      - MIX_ENV=prod
+      - DATABASE_URL=ecto://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
+      - DSPACE_API_BASE_URL=${DSPACE_API_BASE_URL}
+      - PHX_IP=0.0.0.0
+    depends_on:
+      - dspace
+      - postgres
+    ports:
+      - ${GUPEA_ESPIKNING_HOST_PORT}:4000
+    networks:
+      - dspace-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    <<: *default-restart
   gupea-dflow-import:
     image: docker.ub.gu.se/gupea-dflow-import:${GUPEA_DFLOW_IMPORT_GIT_REVISION}
     env_file:

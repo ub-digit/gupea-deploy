@@ -1,12 +1,12 @@
 ---
 docker_git_revision: master
-dspace_version: release-2025.10.001
+dspace_version: release-2025.10.002
 dspace_solr_version: '8_x'
 dspace_postgres_version: '8_x'
 dspace_angular_version: release-2025.10.007
-gupea_espikning_git_revision: release-2025.10.005
-gupea_dflow_import_git_revision: release-2025.10.003
-gupea_xslt_uppsok_git_revision: release-2025.10.001
+gupea_espikning_git_revision: release-2025.11.001
+gupea_dflow_import_git_revision: release-2025.10.004
+gupea_xslt_uppsok_git_revision: release-2025.10.003
 docker_command: ./docker-compose-release-mailpit.sh
 angular_host_port: 40030
 dspace_host_port: 40031

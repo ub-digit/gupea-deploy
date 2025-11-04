@@ -8,10 +8,6 @@ services:
       DSPACE_REST_HOST: '${ANGULAR_PUBLIC_HOST}'
       DSPACE_REST_PORT: 443
       DSPACE_REST_SSL: 'true'
-  gupea-espikning:
-    environment:
-      PHX_HOST: '${ANGULAR_PUBLIC_HOST}'
-      PHX_PATH: '/espikning'
   dspace:
     environment:
       dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server
@@ -21,10 +17,14 @@ services:
       - secrets.env
     image: docker.ub.gu.se/gupea-espikning:${GUPEA_ESPIKNING_GIT_REVISION}
     environment:
-      - MIX_ENV=prod
-      - DATABASE_URL=ecto://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
-      - DSPACE_API_BASE_URL=${DSPACE_API_BASE_URL}
-      - PHX_IP=0.0.0.0
+      MIX_ENV: prod
+      DATABASE_URL: 'ecto://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}'
+      DSPACE_API_BASE_URL: '${DSPACE_API_BASE_URL}'
+      SMTP_SERVER: '${SMTP_SERVER}'
+      SMTP_PORT: '${SMTP_PORT}'
+      PHX_HOST: '${ANGULAR_PUBLIC_HOST}'
+      PHX_PATH: '/espikning'
+      PHX_IP: 0.0.0.0
     depends_on:
       - dspace
       - postgres

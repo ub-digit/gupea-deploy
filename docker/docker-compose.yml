@@ -92,6 +92,10 @@ services:
       # This is because Server Side Rendering (SSR) currently requires a public URL,
       # see this bug: htts://github.com/DSpace/dspace-angular/issues/1485
       DSPACE_REST_NAMESPACE: /server
+      DSPACE_INFO_ENABLEENDUSERAGREEMENT: false
+      DSPACE_INFO_ENABLEPRIVACYSTATEMENT: false
+      DSPACE_INFO_ENABLECOOKIECONSENTPOPUP: false
+      DSPACE_BROWSEBY_SHOWTHUMBNAILS: false
     ports:
       - "${ANGULAR_HOST_PORT}:4000"
     networks:

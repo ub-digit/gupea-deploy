@@ -54,7 +54,6 @@ services:
       - '${GUPEA_DFLOW_IMPORT_HOST_PORT}:3000'
     volumes:
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
-      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
       - ${GUPEA_DFLOW_IMPORT_DATA_HOST_DIR}:${GUPEA_DFLOW_IMPORT_BASE_PATH_INTERNAL}
     <<: *default-restart
   gupea-xslt-uppsok:

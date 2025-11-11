@@ -10,7 +10,6 @@ services:
     stdin_open: true
     volumes:
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
-      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
 networks:
   default:
     name: dspace_dspace-net

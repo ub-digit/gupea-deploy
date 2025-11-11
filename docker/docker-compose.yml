@@ -55,12 +55,14 @@ services:
     <<: *default-restart
   dspace:
     image: docker.ub.gu.se/dspace:dspace-8_x-${DSPACE_VERSION}
+    labels:
+      gu.ub.logging_format: ECS
     env_file:
       - secrets.env
       - dspace.service.env
     volumes:
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
-      - ${DSPACE_LOGS_HOST_DIR}:/dspace/logs:rw
+      - ${DSPACE_LOGS_HOST_DIR}:/dspace/log:rw
     depends_on:
       - postgres
       - solr

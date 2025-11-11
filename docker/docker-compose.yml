@@ -1,4 +1,4 @@
-name: "dspace"
+name: "gupea"
 
 x-restart: &default-restart
   restart: unless-stopped

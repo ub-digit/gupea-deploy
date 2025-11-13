@@ -12,6 +12,8 @@ services:
     environment:
       dspace__P__server__P__url: https://${DSPACE_PUBLIC_HOST}/server
       dspace__P__ui__P__url: https://${ANGULAR_PUBLIC_HOST}
+      dspace__P__name: '${REPOSITORY_NAME}'
+      dspace__P__shortname: '${REPOSITORY_NAME}'
   gupea-espikning:
     env_file:
       - secrets.env

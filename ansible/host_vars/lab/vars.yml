@@ -17,3 +17,4 @@ gupea_xslt_uppsok_host_port: 30035
 
 dspace_hostname: "{{ app_name }}-lab.ub.gu.se"
 angular_hostname: "{{ app_name }}-lab.ub.gu.se"
+repository_name: GUPEA-lab

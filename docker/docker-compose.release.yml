@@ -18,6 +18,8 @@ services:
     env_file:
       - secrets.env
     image: docker.ub.gu.se/gupea-espikning:${GUPEA_ESPIKNING_GIT_REVISION}
+    labels:
+      gu.ub.logging_format: ECS
     environment:
       MIX_ENV: prod
       DATABASE_URL: 'ecto://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}'

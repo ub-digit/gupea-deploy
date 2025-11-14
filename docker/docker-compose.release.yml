@@ -44,6 +44,8 @@ services:
     <<: *default-restart
   gupea-dflow-import:
     image: docker.ub.gu.se/gupea-dflow-import:${GUPEA_DFLOW_IMPORT_GIT_REVISION}
+    labels:
+      gu.ub.logging_format: ECS
     env_file:
       - secrets.env
       - dspace.service.env

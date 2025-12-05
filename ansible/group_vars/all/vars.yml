@@ -4,8 +4,24 @@ docker_directory: './docker' # Default is './docker'
 app_name: gupea
 
 data_dir: /data/gupea
-postgres_data_dir: /data/gupea/postgres-data
-solr_data_dir: /data/gupea/solr-data
-dspace_asset_store_dir:  /data/gupea/dspace-asset-store
-dspace_logs_dir: /data/gupea/dspace-logs
-gupea_dflow_import_data_dir: /data/gupea/dflow-import-data
+data_dirs:
+  postgres:
+    path: /data/gupea/postgres-data
+    owner: 999
+    group: 999
+  solr:
+    path: /data/gupea/solr-data
+    owner: 8983
+    group: 8983
+  dspace_asset_store:
+    path: /data/gupea/dspace-asset-store
+    owmer: root
+    group: root
+  dspace_logs:
+    path: /data/gupea/dspace-logs
+    owmer: root
+    group: root
+  gupea_dflow_import:
+    path: /data/gupea/dflow-import-data
+    owmer: root
+    group: root

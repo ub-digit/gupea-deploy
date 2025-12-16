@@ -32,6 +32,7 @@
   ProxyPreserveHost On
   ProxyRequests Off
 
+  # Espikning
   RewriteEngine On
 
   # WebSocket proxy for LiveReload
@@ -54,7 +55,19 @@
 
   ProxyPreserveHost Off
 
-  # DSpace frontend
+  # DSpace frontend (through Anubis)
+
+  # @TODO: Default is already Off, so perhaps remove?
+  ProxyVia Off
+
+  # These headers need to be set or else Anubis will
+  # throw an "admin misconfiguration" error.
+  RequestHeader set "X-Real-Ip" expr=%{REMOTE_ADDR}
+  RequestHeader set X-Forwarded-Proto "https"
+  RequestHeader set "X-Http-Version" "%{SERVER_PROTOCOL}s"
+
+  # Anubis listens on frontend host port and proxies request
+  # to the frontend port on the internal docker network
   ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
   ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
 

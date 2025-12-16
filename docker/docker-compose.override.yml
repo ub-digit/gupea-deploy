@@ -8,6 +8,8 @@ services:
       DSPACE_REST_HOST: localhost
       DSPACE_REST_PORT: 8080
       DSPACE_REST_SSL: 'false'
+    ports:
+      - "${ANGULAR_HOST_PORT}:4000"
     volumes:
       - "../../dspace-angular:/app"
       - "node-cache:/cache"

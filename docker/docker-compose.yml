@@ -98,8 +98,6 @@ services:
       DSPACE_INFO_ENABLEPRIVACYSTATEMENT: false
       DSPACE_INFO_ENABLECOOKIECONSENTPOPUP: false
       DSPACE_BROWSEBY_SHOWTHUMBNAILS: false
-    ports:
-      - "${ANGULAR_HOST_PORT}:4000"
     networks:
       - dspace-net
     depends_on:

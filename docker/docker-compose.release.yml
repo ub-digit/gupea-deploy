@@ -73,3 +73,27 @@ services:
     ports:
       - '${GUPEA_XSLT_UPPSOK_HOST_PORT}:3000'
     <<: *default-restart
+  anubis:
+    image: ghcr.io/techarohq/anubis:latest
+    networks:
+      - dspace-net
+    environment:
+      BIND: ":8080"
+      DIFFICULTY: "4"
+      METRICS_BIND: ":9090"
+      SERVE_ROBOTS_TXT: "true"
+      TARGET: "http://angular:4000"
+      POLICY_FNAME: "/data/cfg/botPolicy.yaml"
+      OG_PASSTHROUGH: "true"
+      OG_EXPIRY_TIME: "24h"
+    healthcheck:
+      test: ["CMD", "anubis", "--healthcheck"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 500ms
+    ports:
+      - ${ANGULAR_HOST_PORT}:8080
+    volumes:
+      - "${ANUBIS_BOT_POLICY_HOST_FILE}:/data/cfg/botPolicy.yaml:ro"
+    <<: *default-restart

@@ -3,3 +3,4 @@ postgres-*
 secrets.env
 *.service.env
 solr-data
+dflow-import-data

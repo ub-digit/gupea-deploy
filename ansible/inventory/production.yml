@@ -1,6 +1,6 @@
 ---
 all:
   hosts:
-    lab:
+    production:
       ansible_host: gupea.ub.gu.se
       ansible_user: apps

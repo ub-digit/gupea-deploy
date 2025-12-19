@@ -1,6 +1,6 @@
 ---
 all:
   hosts:
-    lab:
+    staging:
       ansible_host: gupea-staging.ub.gu.se
       ansible_user: apps

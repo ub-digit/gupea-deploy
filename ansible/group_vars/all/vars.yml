@@ -9,19 +9,34 @@ data_dirs:
     path: /data/gupea/postgres-data
     owner: 999
     group: 999
+    mode: '0750'
+    pull: false
+    push: false
   solr:
     path: /data/gupea/solr-data
     owner: 8983
     group: 8983
+    mode: '0750'
+    pull: true
+    push: true
   dspace_asset_store:
     path: /data/gupea/dspace-asset-store
     owmer: root
     group: root
+    mode: '0750'
+    pull: true
+    push: true
   dspace_logs:
     path: /data/gupea/dspace-logs
     owmer: root
     group: root
+    mode: '0750'
+    pull: true
+    push: true
   gupea_dflow_import:
     path: /data/gupea/dflow-import-data
     owmer: root
     group: root
+    mode: '0750'
+    pull: true
+    push: true

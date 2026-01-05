@@ -10,8 +10,11 @@
   ProxyPass        /dflow-import http://127.0.0.1:{{ gupea_dflow_import_host_port }}/dflow_import
   ProxyPassReverse /dflow-import http://127.0.0.1:{{ gupea_dflow_import_host_port }}/dflow_import
 
+  ProxyPass        /oai http://127.0.0.1:{{ dspace_host_port }}/server/oai
+  ProxyPassReverse /oai http://127.0.0.1:{{ dspace_host_port }}/server/oai
+
   ProxyPass        /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
-  ProxyPass        /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
+  ProxyPassReverse /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
 
   # DSpace server
   ProxyPass        /server http://127.0.0.1:{{ dspace_host_port }}/server

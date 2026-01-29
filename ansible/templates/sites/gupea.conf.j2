@@ -16,6 +16,15 @@
   ProxyPass        /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
   ProxyPassReverse /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
 
+  ProxyPass        /robots.txt http://127.0.0.1:{{ angular_extra_host_port }}/robots.txt
+  ProxyPassReverse /robots.txt http://127.0.0.1:{{ angular_extra_host_port }}/robots.txt
+
+  ProxyPass        /sitemap http://127.0.0.1:{{ angular_extra_host_port }}/sitemap
+  ProxyPassReverse /sitemap http://127.0.0.1:{{ angular_extra_host_port }}/sitemap
+
+  ProxyPass        /htmlmap http://127.0.0.1:{{ angular_extra_host_port }}/htmlmap
+  ProxyPassReverse /htmlmap http://127.0.0.1:{{ angular_extra_host_port }}/htmlmap
+
   # DSpace server
   ProxyPass        /server http://127.0.0.1:{{ dspace_host_port }}/server
   ProxyPassReverse /server http://127.0.0.1:{{ dspace_host_port }}/server

@@ -12,6 +12,8 @@ MAILPIT_HOST_PORT: '127.0.0.1:{{ mailpit_host_port }}'
 GUPEA_ESPIKNING_HOST_PORT: '127.0.0.1:{{ gupea_espikning_host_port }}'
 GUPEA_DFLOW_IMPORT_HOST_PORT: '127.0.0.1:{{ gupea_dflow_import_host_port }}'
 GUPEA_XSLT_UPPSOK_HOST_PORT: '127.0.0.1:{{ gupea_xslt_uppsok_host_port }}'
+ANGULAR_EXTRA_HOST_PORT: '127.0.0.1:{{ angular_extra_host_port }}'
+
 DSPACE_PUBLIC_HOST: '{{ dspace_hostname }}'
 ANGULAR_PUBLIC_HOST: '{{ angular_hostname }}'
 REPOSITORY_NAME: '{{ repository_name }}'

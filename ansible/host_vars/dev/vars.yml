@@ -14,6 +14,7 @@ mailpit_host_port: 40032
 gupea_espikning_host_port: 40033
 gupea_dflow_import_host_port: 40034
 gupea_xslt_uppsok_host_port: 40035
+angular_extra_host_port: 40036
 
 dspace_hostname: "{{ app_name }}-dev.ub.gu.se"
 angular_hostname: "{{ app_name }}-dev.ub.gu.se"

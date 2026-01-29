@@ -7,8 +7,14 @@
   ServerName {{ angular_hostname }}
 
   ProxyPass /submissions !
+{% if inventory_hostname == 'production' %}
+  ProxyPass /2077 !
+{% endif %}
 
   Redirect permanent /submissions https://{{ angular_hostname }}/mydspace?configuration=workspace
+{% if inventory_hostname == 'production' %}
+  Redirect permanent /2077 https://{{ angular_hostname }}/handle/2077
+{% endif %}
 
   RequestHeader set X-Forwarded-Proto https
   ProxyPass        /dflow-import http://127.0.0.1:{{ gupea_dflow_import_host_port }}/dflow_import

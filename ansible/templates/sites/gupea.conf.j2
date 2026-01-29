@@ -6,6 +6,10 @@
 <VirtualHost *:443>
   ServerName {{ angular_hostname }}
 
+  ProxyPass /submissions !
+
+  Redirect permanent /submissions https://{{ angular_hostname }}/mydspace?configuration=workspace
+
   RequestHeader set X-Forwarded-Proto https
   ProxyPass        /dflow-import http://127.0.0.1:{{ gupea_dflow_import_host_port }}/dflow_import
   ProxyPassReverse /dflow-import http://127.0.0.1:{{ gupea_dflow_import_host_port }}/dflow_import

@@ -19,6 +19,13 @@ data_dirs:
     mode: '0750'
     pull: true
     push: true
+  dspace_sitemaps:
+    path: /data/gupea/sitemaps
+    owner: root
+    group: root
+    mode: '0750'
+    pull: true
+    push: true
   dspace_asset_store:
     path: /data/gupea/dspace-asset-store
     owmer: root

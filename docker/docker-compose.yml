@@ -62,6 +62,7 @@ services:
       - dspace.service.env
     volumes:
       - ${DSPACE_ASSET_STORE_HOST_DIR}:/dspace/assetstore:rw
+      - ${DSPACE_SITEMAPS_HOST_DIR}:/dspace/sitemaps:rw
       - ${DSPACE_LOGS_HOST_DIR}:/dspace/log:rw
     depends_on:
       - postgres

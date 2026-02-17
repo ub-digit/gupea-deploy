@@ -19,3 +19,6 @@ angular_extra_host_port: 30036
 dspace_hostname: "{{ app_name }}-lab.ub.gu.se"
 angular_hostname: "{{ app_name }}-lab.ub.gu.se"
 repository_name: GUPEA-lab
+
+handle_canonical_prefix: 'https://{{ app_name }}-lab.ub.gu.se/handle/'
+handle_prefix: '123456789'

@@ -18,6 +18,9 @@ DSPACE_PUBLIC_HOST: '{{ dspace_hostname }}'
 ANGULAR_PUBLIC_HOST: '{{ angular_hostname }}'
 REPOSITORY_NAME: '{{ repository_name }}'
 
+HANDLE_CANONICAL_PREFIX: '{{ handle_canonical_prefix }}'
+HANDLE_PREFIX: '{{ handle_prefix }}'
+
 POSTGRES_DATA_HOST_DIR: '{{ data_dirs.postgres.path }}'
 SOLR_DATA_HOST_DIR: '{{ data_dirs.solr.path }}'
 DSPACE_ASSET_STORE_HOST_DIR: '{{ data_dirs.dspace_asset_store.path }}'

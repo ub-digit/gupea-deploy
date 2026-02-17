@@ -22,7 +22,7 @@ services:
       retries: 5
     <<: *default-restart
   solr:
-    image: dspace/dspace-solr:dspace-${DSPACE_SOLR_VERSION}
+    image: docker.ub.gu.se/dspace/dspace-solr:dspace-8_x-$DSPACE_SOLR_VERSION
     environment:
       - SOLR_HEAP=2g
     volumes:

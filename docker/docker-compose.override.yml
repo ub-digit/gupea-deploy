@@ -21,5 +21,8 @@ services:
       - ${MAILPIT_HOST_PORT}:8025
     networks:
       - dspace-net
+  solr:
+    ports:
+      - "8888:8983"
 volumes:
   node-cache:

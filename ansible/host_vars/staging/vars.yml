@@ -1,7 +1,7 @@
 ---
 docker_git_revision: master
 dspace_version: release-2026.01.002
-dspace_solr_version: release-2026.01.004
+dspace_solr_version: release-2026.01.005
 dspace_postgres_version: '8_x'
 dspace_angular_version: release-2026.02.001
 gupea_espikning_git_revision: release-2025.12.002

@@ -28,21 +28,21 @@ data_dirs:
     push: true
   dspace_asset_store:
     path: /data/gupea/dspace-asset-store
-    owmer: root
+    owner: root
     group: root
     mode: '0750'
     pull: true
     push: true
   dspace_logs:
     path: /data/gupea/dspace-logs
-    owmer: root
+    owner: root
     group: root
     mode: '0750'
     pull: true
     push: true
   gupea_dflow_import:
     path: /data/gupea/dflow-import-data
-    owmer: root
+    owner: root
     group: root
     mode: '0750'
     pull: true

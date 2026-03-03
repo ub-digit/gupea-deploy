@@ -40,10 +40,12 @@ data_dirs:
     mode: '0750'
     pull: true
     push: true
-  gupea_dflow_import:
-    path: /data/gupea/dflow-import-data
-    owner: root
-    group: root
-    mode: '0750'
-    pull: true
-    push: true
+# Assume gupea_dflow_import already exists on the host
+# In production is mounted by sshfs and ownership and mode can't be choosen
+#  gupea_dflow_import:
+#    path: /data/gupea/dflow-import-data
+#    owner: root
+#    group: root
+#    mode: '0750'
+#    pull: true
+#    push: true

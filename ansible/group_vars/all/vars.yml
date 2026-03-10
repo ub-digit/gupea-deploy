@@ -31,8 +31,8 @@ data_dirs:
     owner: root
     group: root
     mode: '0750'
-    pull: true
-    push: true
+    pull: false
+    push: false
   dspace_logs:
     path: /data/gupea/dspace-logs
     owner: root

@@ -17,14 +17,6 @@
   roles:
   - role: ub-ansible-decrypt-local-docker-secrets
 
-- name: Set current inventory hostname
-  hosts: all
-  gather_facts: false
-  tags: [pull]
-  tasks:
-    - name: Remember current inventory hostname for later
-      ansible.builtin.set_fact:
-        current_inventory_hostname: "{{ inventory_hostname }}"
 
 - name: Synchronize local docker data directories
   hosts: localhost

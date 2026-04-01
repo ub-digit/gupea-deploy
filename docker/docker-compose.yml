@@ -81,6 +81,8 @@ services:
       DSPACE_INFO_ENABLEPRIVACYSTATEMENT: false
       DSPACE_INFO_ENABLECOOKIECONSENTPOPUP: false
       DSPACE_BROWSEBY_SHOWTHUMBNAILS: false
+      DSPACE_MARKDOWN_ENABLED: true
+      DSPACE_MARKDOWN_MATHJAX: true
     networks:
       - dspace-net
     depends_on:

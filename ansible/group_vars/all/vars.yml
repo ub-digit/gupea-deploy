@@ -2,6 +2,7 @@
 docker_git_repo_url: https://github.com/ub-digit/gupea-deploy.git
 docker_directory: './docker' # Default is './docker'
 app_name: gupea
+espikning_app_name: gupea-espikning
 
 data_dir: /data/gupea
 data_dirs:

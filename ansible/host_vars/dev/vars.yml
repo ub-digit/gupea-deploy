@@ -18,6 +18,7 @@ angular_extra_host_port: 40036
 
 dspace_hostname: "{{ app_name }}-dev.ub.gu.se"
 angular_hostname: "{{ app_name }}-dev.ub.gu.se"
+espikning_hostname: "{{ espikning_app_name }}-dev.ub.gu.se"
 repository_name: GUPEA-dev
 
 handle_canonical_prefix: 'https://{{ app_name }}-dev.ub.gu.se/handle/'

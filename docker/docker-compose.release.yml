@@ -42,7 +42,7 @@ services:
       SMTP_SERVER: '${SMTP_SERVER}'
       SMTP_PORT: '${SMTP_PORT}'
       PHX_HOST: '${ANGULAR_PUBLIC_HOST}'
-      PHX_PATH: '/espikning'
+      PHX_PATH: '/'
       PHX_IP: 0.0.0.0
     depends_on:
       - dspace

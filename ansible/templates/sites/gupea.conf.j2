@@ -55,27 +55,6 @@
   ProxyPreserveHost On
   ProxyRequests Off
 
-  # Espikning
-  RewriteEngine On
-
-  # WebSocket proxy for LiveReload
-  RewriteCond %{HTTP:Upgrade} =websocket [NC]
-  RewriteRule ^/espikning/?(.*) ws://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
-
-  # HTTP proxy for everything else
-  RewriteCond %{HTTP:Upgrade} !=websocket [NC]
-  RewriteRule ^/espikning/?(.*) http://127.0.0.1:{{ gupea_espikning_host_port }}/$1 [P,L]
-
-  # Optional: redirect /espikning/favicon.ico
-  # Redirect /espikning/favicon.ico /favicon.ico
-
-  <Location "/espikning">
-    AuthType Basic
-    AuthName "Restricted Content"
-    AuthUserFile /etc/apache2/conf-enabled/.htpasswd
-    Require valid-user
-  </Location>
-
   # DSpace frontend (through Anubis)
 
   # @TODO: Default is already Off, so perhaps remove?
@@ -91,6 +70,40 @@
   # to the frontend port on the internal docker network
   ProxyPass        / http://127.0.0.1:{{ angular_host_port }}/
   ProxyPassReverse / http://127.0.0.1:{{ angular_host_port }}/
+
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem
+  SSLCertificateKeyFile /etc/ssl/apache2/private/ub-gu-se.key
+  SSLCertificateChainFile /etc/ssl/apache2/certs/ub-gu-se-chain.pem
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerName {{ espikning_hostname }}
+  Redirect permanent / https://{{ espikning_hostname }}
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName {{ espikning_hostname }}
+
+  RewriteEngine On
+
+  # WebSocket proxy for LiveReload
+  RewriteCond %{HTTP:Upgrade} =websocket [NC]
+  RewriteRule ^/?(.*) ws://127.0.0.1:20033/$1 [P,L]
+
+  # HTTP proxy for everything else
+  RewriteCond %{HTTP:Upgrade} !=websocket [NC]
+  RewriteRule ^/?(.*) http://127.0.0.1:20033/$1 [P,L]
+
+  # Optional: redirect /espikning/favicon.ico
+  # Redirect /espikning/favicon.ico /favicon.ico
+
+  <Location "/">
+    AuthType Basic
+    AuthName "Restricted Content"
+    AuthUserFile /etc/apache2/conf-enabled/.htpasswd
+    Require valid-user
+  </Location>
 
   SSLEngine on
   SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem

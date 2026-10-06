@@ -26,6 +26,9 @@
   ProxyPass        /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
   ProxyPassReverse /oai-uppsok http://127.0.0.1:{{ gupea_xslt_uppsok_host_port }}/oai
 
+  ProxyPass        /acta http://127.0.0.1:{{ acta_transform_host_port }}/
+  ProxyPassReverse /acta http://127.0.0.1:{{ acta_transform_host_port }}/
+
   # Go direct to frontend and not through Anubis
   ProxyPass        /robots.txt http://127.0.0.1:{{ angular_extra_host_port }}/robots.txt
   ProxyPassReverse /robots.txt http://127.0.0.1:{{ angular_extra_host_port }}/robots.txt

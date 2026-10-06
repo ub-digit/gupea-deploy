@@ -7,6 +7,7 @@ dspace_angular_version: release-2026.09.007
 gupea_espikning_git_revision: release-2026.09.001
 gupea_dflow_import_git_revision: release-2026.01.001
 gupea_xslt_uppsok_git_revision: release-2025.10.003
+acta_transform_git_revision: testing-2026.04.001
 docker_command: ./docker-compose-release-mailpit.sh
 angular_host_port: 40030
 dspace_host_port: 40031
@@ -15,6 +16,7 @@ gupea_espikning_host_port: 40033
 gupea_dflow_import_host_port: 40034
 gupea_xslt_uppsok_host_port: 40035
 angular_extra_host_port: 40036
+acta_transform_host_port: 40037
 
 dspace_hostname: "{{ app_name }}-dev.ub.gu.se"
 angular_hostname: "{{ app_name }}-dev.ub.gu.se"

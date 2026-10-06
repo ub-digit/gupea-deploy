@@ -90,6 +90,15 @@ services:
     ports:
       - '${GUPEA_XSLT_UPPSOK_HOST_PORT}:3000'
     <<: *default-restart
+  acta-transform:
+    image: docker.ub.gu.se/acta-transform:${ACTA_TRANSFORM_GIT_REVISION}
+    environment:
+      XML_URL: 'http://dspace:8080/server/opensearch/search?format=atom&scope=${ACTA_TRANSFORM_SCOPE}&query=*'
+    networks:
+      - dspace-net
+    ports:
+      - '${ACTA_TRANSFORM_HOST_PORT}:5000'
+    <<: *default-restart
   anubis:
     image: ghcr.io/techarohq/anubis:latest
     networks:

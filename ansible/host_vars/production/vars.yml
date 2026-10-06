@@ -7,6 +7,7 @@ dspace_angular_version: release-2026.09.007
 gupea_espikning_git_revision: release-2026.09.001
 gupea_dflow_import_git_revision: release-2026.01.001
 gupea_xslt_uppsok_git_revision: release-2025.10.003
+acta_transform_git_revision: testing-2026.04.001
 docker_command: ./docker-compose-release.sh
 angular_host_port: 10030
 dspace_host_port: 10031
@@ -15,6 +16,7 @@ gupea_espikning_host_port: 10033
 gupea_dflow_import_host_port: 10034
 gupea_xslt_uppsok_host_port: 10035
 angular_extra_host_port: 10036
+acta_transform_host_port: 10037
 
 dspace_hostname: "{{ app_name }}.ub.gu.se"
 angular_hostname: "{{ app_name }}.ub.gu.se"

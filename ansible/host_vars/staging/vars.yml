@@ -4,7 +4,7 @@ dspace_version: release-2026.09.003
 dspace_solr_version: release-2026.01.005
 dspace_postgres_version: '8_x'
 dspace_angular_version: release-2026.09.007
-gupea_espikning_git_revision: release-2026.09.001
+gupea_espikning_git_revision: release-2026.10.001
 gupea_dflow_import_git_revision: release-2026.01.001
 gupea_xslt_uppsok_git_revision: release-2025.10.003
 acta_transform_git_revision: testing-2026.04.001

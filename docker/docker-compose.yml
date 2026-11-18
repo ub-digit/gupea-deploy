@@ -37,6 +37,8 @@ services:
     <<: *default-restart
   dspace:
     image: docker.ub.gu.se/dspace:dspace-8_x-${DSPACE_VERSION}
+    environment:
+      JDK_JAVA_OPTIONS: "-XX:UseAVX=2"
     labels:
       gu.ub.logging_format: ECS
     env_file:
